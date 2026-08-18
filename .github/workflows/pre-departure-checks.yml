@@ -1,0 +1,60 @@
+name: pre-departure checks
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  weather:
+    name: Прогноз погоди
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Субота +24, хмарно з проясненнями, вітер 2 м/с."
+      - run: echo "Ніч +16. Заявник бере теплу куртку."
+      - run: echo "::notice::Умови придатні. PASS"
+
+  roster:
+    name: Склад учасників
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Себестьянович Олександр (кум) ... підтвердив"
+      - run: echo "Власюк Павло (кум) ............ підтвердив"
+      - run: echo "Богуш Дмитро (не кум) ......... ще не точно"
+      - run: echo "заявник ....................... очікує рішення ревьюера"
+      - run: echo "::notice::Склад закритий, нові не додаються. PASS"
+
+  gear:
+    name: Спорядження
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "вудки .......... OK"
+      - run: echo "намет .......... OK (перевірено, не тече)"
+      - run: echo "підсака та килимок ... OK (вимога спортивного ставка)"
+      - run: echo "аптечка ........ OK"
+      - run: echo "::notice::Спорядження укомплектовано. PASS"
+
+  catch-policy:
+    name: Політика вилову
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Ставок спортивний: catch and release."
+      - run: echo "Очікуваний улов додому: 0 кг."
+      - run: echo "::notice::Жодних обіцянок щодо риби не дається. PASS"
+
+  calendar:
+    name: Конфлікти в календарі
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Перевірка 22–23.08 на родинні події..."
+      - run: echo "Конфліктів не знайдено."
+      - run: echo "::notice::PASS"
+
+  approval:
+    name: Схвалення дружини
+    runs-on: ubuntu-latest
+    needs: [weather, roster, gear, catch-policy, calendar]
+    steps:
+      - run: |
+          echo "Усі технічні перевірки пройдено."
+          echo "Залишилася єдина, яка справді має значення."
+          echo "::warning::Очікує ручного схвалення ревьюера. Автоматизації не підлягає."

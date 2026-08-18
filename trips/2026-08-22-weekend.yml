@@ -1,0 +1,44 @@
+# Заявка на виїзд. Валідується автоматичними перевірками.
+apiVersion: family.local/v1
+kind: WeekendTrip
+metadata:
+  name: fishing-with-kums-august
+  rfc: RFC-001
+  labels:
+    type: риболовля
+    priority: p2-бажано
+
+spec:
+  departure: 2026-08-22T14:00+03:00   # субота, після обіду
+  return:    2026-08-23T14:00+03:00   # неділя, після обіду
+  duration: PT24H
+
+  location:
+    type: ставок
+    mode: спортивний
+    catchAndRelease: true             # весь вилов повертається у воду
+    distanceKm: 60
+    mobileCoverage: true              # на зв'язку постійно
+
+  participants:
+    - ім'я: Себестьянович Олександр
+      статус: кум
+      підтверджено: true
+    - ім'я: Власюк Павло
+      статус: кум
+      підтверджено: true
+    - ім'я: Богуш Дмитро
+      статус: не кум
+      підтверджено: null            # ще не точно
+    - ім'я: заявник
+      статус: чоловік
+      підтверджено: pending           # залежить від рішення в цьому PR
+
+  constraints:
+    продовженняДозволено: false
+    заПершимДзвінкомПовертається: true
+    рибаДодому: false                # ставок спортивний
+
+status:
+  phase: PendingApproval
+  approvedBy: null                    # ← тут має з'явитися підпис
